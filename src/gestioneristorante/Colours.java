@@ -10,22 +10,25 @@ package gestioneristorante;
  * @author qiuyu
  */
 public enum Colours {
+
+    // per ogni colore ha 256 colori, quindi 0 - 255
+    RED(255,0,0),
+    BLUE(0,255,0),
+    GREEN(0,0,255);
     
-    RED(100,0),
-    BLUE(0,100),
-    GREEN(100,100);
-    
-    private Colours(int red, int blue){
+    private Colours(int red, int blue, int green){
         this.red=red;
         this.blue=blue;
+        this.green=green;
     }
     
     private final int red;
     private final int blue;
+    private final int green;
 
     @Override
     public String toString() {
-        return this.name()+ "(" + "red=" + this.red + ", blue=" + this.blue + '}';
+        return this.name()+ "(" + "red=" + this.red + ", blue=" + this.blue + ", verde=" + this.green + '}';
     }
     
     

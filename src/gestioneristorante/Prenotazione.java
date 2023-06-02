@@ -26,15 +26,14 @@ public class Prenotazione {
 
     /**
      * costruttore di default: inizializzo nome,la data di prenotazione, ora di
-     * prenotazione, il numero di prenotazione e il numero di telefono
+     * prenotazione attuale, il numero di prenotazione e il numero di telefono
      */
     public Prenotazione() {
         this.nome = "";
-        this.data_di_prenotazione = LocalDate.parse("01-01-2023", DATE_FORMAT);
-        this.ora_di_prenotazione = LocalTime.parse("HH:mm", DATE_FORMAT);
+        this.data_di_prenotazione = LocalDate.now();
+        this.ora_di_prenotazione = LocalTime.now();
         this.n_persone = 0;
         this.n_telefono = "";
-
     }
 
     /**
@@ -46,12 +45,12 @@ public class Prenotazione {
      * @param n_persone numero di persone al tavolo
      * @param n_telefono numero di telefono
      */
-    public Prenotazione(String nome, LocalDate data_di_prenotazione,
+    public Prenotazione(String nome, String data_di_prenotazione,
             String ora_di_prenotazione, int n_persone, String n_telefono) {
 
         this.nome = nome;
-        this.data_di_prenotazione = LocalDate.parse("01-01-2023", DATE_FORMAT);
-        this.ora_di_prenotazione = LocalTime.parse("13:00", DATE_FORMAT);
+        this.data_di_prenotazione = LocalDate.parse(data_di_prenotazione, DATE_FORMAT);
+        this.ora_di_prenotazione = LocalTime.parse(ora_di_prenotazione, DATE_FORMAT);
         this.n_persone = n_persone;
         this.n_telefono = n_telefono;
     }
@@ -161,7 +160,7 @@ public class Prenotazione {
      */
     @Override
     public String toString() {
-        return "Prenotazione{" + "nome=" + nome + ", data_di_prenotazione=" + data_di_prenotazione + ", ora_di_prenotazione=" + ora_di_prenotazione + ", n_persone=" + n_persone + ", n_telefono=" + n_telefono + '}';
+        return "Prenotazione {" + "nome=" + nome + ", data_di_prenotazione=" + data_di_prenotazione + ", ora_di_prenotazione=" + ora_di_prenotazione + ", n_persone=" + n_persone + ", n_telefono=" + n_telefono + '}';
     }
 
     /**
@@ -171,7 +170,7 @@ public class Prenotazione {
      * @return se i prenotati sono uguali o no
      */
     public boolean equals(Prenotazione p) {
-        return this.nome == p.nome;
+        return this.toString() == p.toString();
     }
 
 }

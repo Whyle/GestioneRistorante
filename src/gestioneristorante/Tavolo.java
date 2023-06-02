@@ -5,6 +5,8 @@
  */
 package gestioneristorante;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author qiuyu
@@ -12,37 +14,52 @@ package gestioneristorante;
 public class Tavolo {
 
     private int numero_del_tavolo;
-    private int capienza;
+
+    /*
+     * Se ugugale null, il tavolo è libero.
+     */
+    private Prenotazione prenotazione;
+
+    private ArrayList<Piatti> lista_piatti = new ArrayList<Piatti>();
 
     /**
-     * costruttore di default: inizializzo il numero di tavolo, numeri di posti al tavolo
+     * costruttore di default: inizializzo il numero di tavolo, prenotazione
      */
-    public Tavolo() {
-        this.numero_del_tavolo = 0;
-        this.capienza = 0;
+    public Tavolo(int numero_del_tavolo) {
+        this.numero_del_tavolo = numero_del_tavolo;
+        this.prenotazione = null;
     }
-
     /**
      * costruttore parametrico
      *
      * @param numero_del_tavolo numero di tavolo
-     * @param capienza numero di posti al tavolo
+     * @param prenotazione un prenotazione effetuato
      */
-    public Tavolo(int numero_del_tavolo, int capienza) {
+    public Tavolo(int numero_del_tavolo, Prenotazione prenotazione) {
         this.numero_del_tavolo = numero_del_tavolo;
-        this.capienza = capienza;
+        this.prenotazione = prenotazione;
     }
 
     /**
      * costruttore di copia
+     * copiare un tavolo esistente in un nuovo tavolo
      *
      * @param t tavolo di cui fare la copia
      */
     public Tavolo(Tavolo t) {
         this.numero_del_tavolo = t.numero_del_tavolo;
-        this.capienza = capienza;
-
+        this.prenotazione = t.prenotazione;
     }
+
+    /**
+     * Aggiungere un piatto ul tavolo
+     * @param p un piatto 
+     */
+    public void aggiungePiatto(Piatti p){
+        this.lista_piatti.add(p);
+    }
+
+
 
     /**
      * metodo get numero di tavoli
@@ -54,41 +71,33 @@ public class Tavolo {
 
     }
 
-    /**
-     * metodo set numero di tavoli
-     *
-     * @param numero_del_tavolo il numero del tavolo
-     */
-    public void setNTavoli(int numero_del_tavolo) {
-        this.numero_del_tavolo = numero_del_tavolo;
-    }
 
     /**
-     * metodo get numero di posti al tavolo
+     * metodo get prenotazione
      *
-     * @return il numero di posti al tavolo 
+     * @return il prenotazione del tavolo
      */
-    public int getNDiPostiAlTavolo() {
-        return capienza;
+    public Prenotazione getPrenotazione() {
+        return prenotazione;
     }
 
+    
     /**
-     * metodo set numero di posti al tavolo
+     * metodo ser prenotazione
      *
-     * @param capienza il numero di posti al tavolo
      */
-    public void setNDiPostiAlTavolo(int capienza) {
-        this.capienza = capienza;
+    public void setPrenotazione(Prenotazione prenotazione) {
+        this.prenotazione = prenotazione;
     }
 
     /**
      * metodo equals che confronta se i due tavoli sono uguali o no
      *
      * @param t tavolo da mettere a confronto
-     * @return se i tavoli sono uguali o no
+     * @return se i tavoli sono uguali entambi numero del tavolo e stesso prenotazione
      */
     public boolean equals(Tavolo t) {
-        return this.capienza == t.capienza;
+        return this.numero_del_tavolo == t.numero_del_tavolo && this.prenotazione.toString()==t.prenotazione.toString();
     }
 
      /**
@@ -99,7 +108,15 @@ public class Tavolo {
     
     @Override
     public String toString() {
-        return "Tavolo{" + "numero_del_tavolo=" + numero_del_tavolo + ", capienza=" + capienza + '}';
+        return "Tavolo { numero_del_tavolo=" + numero_del_tavolo + ", Prenotazione=" + prenotazione.toString() + '}';
+    }
+
+    /**
+     * metodo get lo stato del occupazione del tavolo
+     * @return true il tavolo e' occupato da un prenotazione, viceversa false
+     */
+    public Boolean getStatoOccupazione(){
+        return prenotazione != null;
     }
     
 }
