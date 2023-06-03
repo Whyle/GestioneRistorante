@@ -10,11 +10,7 @@ package myexceptions;
  * @author qiuyu
  */
 public class TavoliEccezioni extends Exception {
-    
-    private int nTavoli;
-    
     public TavoliEccezioni(){
-        this.nTavoli=nTavoli;
     }
 
     @Override

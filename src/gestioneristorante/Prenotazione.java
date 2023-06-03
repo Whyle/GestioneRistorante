@@ -22,8 +22,8 @@ public class Prenotazione {
     private LocalTime ora_di_prenotazione;
     private int n_persone;
     private String n_telefono;
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ITALY);
-
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ITALY);
+    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm", Locale.ITALY);
     /**
      * costruttore di default: inizializzo nome,la data di prenotazione, ora di
      * prenotazione attuale, il numero di prenotazione e il numero di telefono
@@ -50,7 +50,7 @@ public class Prenotazione {
 
         this.nome = nome;
         this.data_di_prenotazione = LocalDate.parse(data_di_prenotazione, DATE_FORMAT);
-        this.ora_di_prenotazione = LocalTime.parse(ora_di_prenotazione, DATE_FORMAT);
+        this.ora_di_prenotazione = LocalTime.parse(ora_di_prenotazione, TIME_FORMAT);
         this.n_persone = n_persone;
         this.n_telefono = n_telefono;
     }
@@ -170,7 +170,7 @@ public class Prenotazione {
      * @return se i prenotati sono uguali o no
      */
     public boolean equals(Prenotazione p) {
-        return this.toString() == p.toString();
+        return this.nome == p.getNome();
     }
 
 }

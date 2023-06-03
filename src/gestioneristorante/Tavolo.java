@@ -5,7 +5,7 @@
  */
 package gestioneristorante;
 
-import java.util.ArrayList;
+import gestioneristorante.Archivio.Piatti;
 
 /**
  *
@@ -19,8 +19,9 @@ public class Tavolo {
      * Se ugugale null, il tavolo è libero.
      */
     private Prenotazione prenotazione;
+    public static final int MAX_PIATTI = 99;
 
-    private ArrayList<Piatti> lista_piatti = new ArrayList<Piatti>();
+    private Piatti[] lista_piatti = new Piatti[MAX_PIATTI];
 
     /**
      * costruttore di default: inizializzo il numero di tavolo, prenotazione
@@ -51,16 +52,57 @@ public class Tavolo {
         this.prenotazione = t.prenotazione;
     }
 
+    public Piatti[] getListaPiatti(){
+        return lista_piatti;
+    }
     /**
-     * Aggiungere un piatto ul tavolo
+     * Aggiungere un piatto a primo posizione index non null
      * @param p un piatto 
+     * @return posizione index dove il piatto viene inserito, altrimente -1
      */
-    public void aggiungePiatto(Piatti p){
-        this.lista_piatti.add(p);
+    public int aggiungePiatto(Piatti p){
+        int index = 0;
+        while(index < MAX_PIATTI){
+            if(lista_piatti[index] == null){
+                lista_piatti[index] = p;
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+    /**
+     * Rimuovere un piatto da un index, poi viene spostato un posizione a sinistra
+     * @param index il posizione dove vuole eliminare
+     * @return true viene eliminato con successo, altrimente false
+     */
+    public boolean rimuoverePiatto(int index){
+        if(index >= 0 && index < MAX_PIATTI){
+            // spostare gli elementi a destra del index a un posizione a sinistra
+            for(int i = index; i < MAX_PIATTI-1; i++){
+                lista_piatti[i] = lista_piatti[i+1];
+            }
+            // evita ultimo elmento del lista va a copiare un vuoto
+            lista_piatti[MAX_PIATTI-1] = null;
+            return true;    
+        }
+        return false;
     }
 
+    /**
+     * Get il saldo attuale sul tavolo
+     * @return il prezzo da pagare sul tavolo
+     */
+    public float saldoAttuale(){
+        float totale = 0;
+        for(int i = 0; i < MAX_PIATTI; i++){
+            if(lista_piatti[i] != null){
+                totale+=lista_piatti[i].prezzo;
+            }
+        }
+        return totale;
 
-
+    }
     /**
      * metodo get numero di tavoli
      *
@@ -115,7 +157,7 @@ public class Tavolo {
      * metodo get lo stato del occupazione del tavolo
      * @return true il tavolo e' occupato da un prenotazione, viceversa false
      */
-    public Boolean getStatoOccupazione(){
+    public Boolean isOccuppato(){
         return prenotazione != null;
     }
     
